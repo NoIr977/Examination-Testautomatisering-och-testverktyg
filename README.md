@@ -16,6 +16,20 @@ For BDD testing, we have used pytest-bdd and Gherkin scenarios.
 
 We have written unit tests and integration tests to check individual parts of the application and how they work together.
 
+## Test Design
+
+The project uses:
+- Pytest for unit and integration testing.
+- Pytest-BDD with Gherkin for frontend test scenarios.
+- Playwright for browser automation.
+- Scenario Outline to test book creation with different data.
+- Page Object Pattern to separate page interactions from test steps.
+
+The project includes 16 automated tests:
+- 8 unit tests
+- 2 integration tests
+- 6 frontend tests
+
 ## Requirements
 
 - Python 3.14 (tested with Python 3.14.5)
@@ -74,6 +88,7 @@ python -m pytest tests/frontend/ -v --headed --slowmo 500
 - `tests/integration/` – Integration tests
 - `tests/frontend/` – Frontend BDD tests
 - `features/` – Gherkin scenarios
+- `pages/` – Page Object classes for frontend testing
 - `STORIES.md` – User stories
 - `ANSWERS.md` – Answers to theory questions
 - `requirements.txt` – Python dependencies
