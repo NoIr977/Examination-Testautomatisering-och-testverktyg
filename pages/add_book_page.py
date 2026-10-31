@@ -1,6 +1,3 @@
-from pytest_playwright.pytest_playwright import page
-
-
 class AddBookPage:
     def __init__(self, page):
         self.page = page
