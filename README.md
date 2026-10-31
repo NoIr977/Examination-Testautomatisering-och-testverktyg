@@ -10,30 +10,39 @@ All tests in this project are written in Python, and the BDD scenarios are writt
 
 We have used TDD for backend development and BDD for frontend testing.
 
-We have also used Playwright to automate frontend testing and pytest to run our tests.
+We use Playwright for frontend browser automation and pytest for unit and integration tests.
 
-For BDD testing, we have used pytest-bdd and Gherkin scenarios.
+For frontend BDD testing, we use Behave and Gherkin scenarios.
 
 We have written unit tests and integration tests to check individual parts of the application and how they work together.
 
 ## Test Design
 
 The project uses:
+
 - Pytest for unit and integration testing.
-- Pytest-BDD with Gherkin for frontend test scenarios.
+- Behave with Gherkin for frontend test scenarios.
 - Playwright for browser automation.
 - Scenario Outline to test book creation with different data.
 - Page Object Pattern to separate page interactions from test steps.
+- Dependency Injection to connect BookStore with FavoriteBooks.
+- Mock objects to test BookStore separately.
 
 The project includes 16 automated tests:
+
 - 8 unit tests
 - 2 integration tests
-- 6 frontend tests
+- 6 frontend BDD scenarios
 
 ## Requirements
 
 - Python 3.14 (tested with Python 3.14.5)
 - pip
+- pytest 9.1.1
+- behave 1.3.3
+- playwright 1.64.0
+
+All required Python packages are listed in `requirements.txt`.
 
 ## Installation
 
@@ -69,25 +78,34 @@ python -m playwright install chromium
 
 ## Run Tests
 
-Run all tests:
+Run unit and integration tests:
 
 ```bash
-python -m pytest -v
+python -m pytest tests/unit/ tests/integration/ -v
 ```
 
-Run frontend tests with a visible browser:
+Run all frontend BDD scenarios:
 
 ```bash
-python -m pytest tests/frontend/ -v --headed --slowmo 500
+python -m behave
 ```
+
+Run a specific frontend feature:
+
+```bash
+python -m behave features/catalog.feature
+```
+
+All frontend scenarios run in headless Chromium by default.
 
 ## Project Structure
 
 - `src/` – Application classes
 - `tests/unit/` – Unit tests
 - `tests/integration/` – Integration tests
-- `tests/frontend/` – Frontend BDD tests
 - `features/` – Gherkin scenarios
+- `features/steps/` – Behave step definitions
+- `features/environment.py` – Playwright browser setup and cleanup
 - `pages/` – Page Object classes for frontend testing
 - `STORIES.md` – User stories
 - `ANSWERS.md` – Answers to theory questions

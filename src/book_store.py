@@ -1,6 +1,7 @@
 class BookStore:
-    def __init__(self):
+    def __init__(self, favorite_books):
         self.books = []
+        self.favorite_books = favorite_books
 
     def addBook(self, author, title):
         book_id = len(self.books) + 1
@@ -17,4 +18,7 @@ class BookStore:
     def toggleFavorite(self, book_id):
         for book in self.books:
             if book_id == book["id"]:
-                book["favorite"] = not book["favorite"]
+                if not book["favorite"]:
+                    self.favorite_books.add(book)
+                else:
+                    self.favorite_books.remove(book)

@@ -1,7 +1,9 @@
 from src.book_store import BookStore
+from unittest.mock import Mock
 
 def test_add_book():
-    store = BookStore()
+    favorite = Mock()
+    store = BookStore(favorite)
 
     store.addBook("Jane Austen", "Pride and Prejudice")
 
@@ -11,7 +13,9 @@ def test_add_book():
     assert store.books[0]["id"] == 1
 
 def test_add_two_books():
-    store = BookStore()
+    favorite = Mock()
+    store = BookStore(favorite)
+
 
     store.addBook("Jane Austen", "Sense and Sensibility")
     store.addBook("Charlotte Brontë", "Jane Eyre")
@@ -25,29 +29,37 @@ def test_add_two_books():
     assert store.books[1]["id"] == 2
 
 def test_empty_store():
-    store = BookStore()
+    favorite = Mock()
+    store = BookStore(favorite)
     assert len(store.books) == 0
 
 
 def test_add_to_favorites():
-    store = BookStore()
+    favorite = Mock()
+    store = BookStore(favorite)
     store.addBook("Jane Austen", "Pride and Prejudice")
     store.toggleFavorite(1)
 
-    assert store.books[0]["favorite"] == True
+    favorite.add.assert_called_once_with(store.books[0])
 
 
 def test_remove_from_favorites():
-    store = BookStore()
+    favorite = Mock()
+    store = BookStore(favorite)
     store.addBook("Jane Austen", "Pride and Prejudice")
-    store.toggleFavorite(1)
-    assert store.books[0]["favorite"] == True
+    store.books[0]["favorite"] = True
 
     store.toggleFavorite(1)
-    assert store.books[0]["favorite"] == False
+
+    favorite.remove.assert_called_once_with(store.books[0])
+
 
 def test_toggle_nonexisting_id():
-    store = BookStore()
+    favorite = Mock()
+    store = BookStore(favorite)
+
     store.addBook("Jane Austen", "Sense and Sensibility")
     store.toggleFavorite(999)
-    assert store.books[0]["favorite"] == False
+
+    favorite.add.assert_not_called()
+    favorite.remove.assert_not_called()
